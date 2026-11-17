@@ -1,0 +1,145 @@
+/* ===== Large desktop tweaks ===== */
+@media (max-width: 1400px) {
+  .grid-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ===== Tablet & below (< 1024px): sidebar becomes drawer, cart becomes drawer ===== */
+@media (max-width: 1023px) {
+  .sidebar { transform: translateX(calc(-100% - 24px)); box-shadow: var(--shadow-float); z-index: 60; }
+  .app.drawer-open .sidebar { transform: none; }
+  .app.collapsed .sidebar { width: var(--sidebar-w); }
+  .app.collapsed .brand-text, .app.collapsed .nav-item span.label, .app.collapsed .profile-info { display: block; }
+  .app.collapsed .nav-item { justify-content: flex-start; padding: 11px 14px; }
+  .collapse-btn { display: none; }
+  .main, .app.collapsed .main { margin-left: 0; }
+  .topbar { margin: 10px 12px 0 12px; }
+  .view { padding: 16px 12px 28px; }
+  .topbar .menu-toggle { display: inline-flex; }
+  .grid-main { grid-template-columns: minmax(0, 1fr); }
+  .grid-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-cards > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  /* POS: single column, cart drawer */
+  .pos { grid-template-columns: minmax(0, 1fr); height: auto; min-height: 0; }
+  .pos-catalog { min-height: 60vh; }
+  .product-grid { overflow: visible; padding-bottom: 100px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .cart-panel {
+    position: fixed; top: 10px; right: 10px; bottom: 10px; width: min(420px, calc(100vw - 20px)); z-index: 90;
+    transform: translateX(calc(100% + 20px)); transition: transform .38s var(--ease);
+    box-shadow: var(--shadow-float);
+  }
+  .pos.cart-open .cart-panel { transform: none; }
+  .cart-scrim { display: block; position: fixed; inset: 0; z-index: 85; background: var(--scrim); opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
+  .pos.cart-open .cart-scrim { opacity: 1; visibility: visible; }
+  .cart-fab {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    position: fixed; z-index: 80; left: 50%; transform: translateX(-50%);
+    bottom: calc(24px + var(--safe-bottom)); width: min(520px, calc(100vw - 32px)); height: 58px; padding: 0 18px;
+    border-radius: 20px; color: #fff; font-weight: 700;
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+    box-shadow: 0 14px 34px rgba(220, 38, 38, .45);
+    transition: transform .2s var(--spring);
+  }
+  .cart-fab:active { transform: translateX(-50%) scale(.97); }
+  .cart-fab.empty-cart { opacity: .92; }
+  .cart-fab .cnt { background: rgba(255, 255, 255, .22); border-radius: 12px; padding: 4px 10px; font-size: 13px; }
+  .pos.cart-open ~ .cart-fab { display: none; }
+}
+
+/* ===== Mobile (< 768px): iOS-like ===== */
+@media (max-width: 767px) {
+  body { font-size: 15px; }
+  .sidebar { display: none; }
+  .topbar .menu-toggle { display: none; }
+  .bottom-nav { display: flex; }
+  .main { padding-bottom: calc(var(--bottom-nav-h) + 34px + var(--safe-bottom)); }
+  .topbar { top: calc(8px + var(--safe-top)); margin: calc(8px + var(--safe-top)) 10px 0; height: 58px; padding: 0 14px; border-radius: 20px; }
+  .topbar h1 { font-size: 17px; }
+  .crumbs { display: none; }
+  .net-pill span.txt { display: none; }
+  .net-pill { padding: 8px; }
+  #installBtn span { display: none; }
+  .view { padding: 14px 10px 20px; }
+  .card { padding: 16px; border-radius: 22px; }
+  .grid-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .grid-2, .grid-3 { grid-template-columns: minmax(0, 1fr); }
+  .form-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .form-row.keep { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .btn { height: 46px; }
+  .btn-sm { height: 36px; }
+  .btn-icon { width: 46px; }
+  .btn-icon.btn-sm { width: 36px; }
+  .input, .select { min-height: 48px; font-size: 16px; }
+  .textarea { font-size: 16px; }
+  .toolbar > .btn, .toolbar > .select { flex: 1 1 auto; }
+  .page-head .btn { flex: 1; }
+  .stat .value { font-size: 18px; }
+
+  /* Bottom sheet instead of modal */
+  .overlay { place-items: end center; padding: 0; }
+  .sheet, .sheet.lg, .sheet.sm {
+    width: 100%; max-height: 92dvh; border-radius: 28px 28px 0 0; border-bottom: 0;
+    animation: sheetUp .38s var(--ease);
+  }
+  .overlay.closing .sheet { transform: translateY(100%); transition: transform .25s var(--ease); }
+  .sheet-grab { display: block; }
+  @keyframes sheetUp { from { transform: translateY(100%); } to { transform: none; } }
+  .sheet-foot { position: sticky; bottom: 0; }
+  #toasts { left: 10px; right: 10px; top: calc(74px + var(--safe-top)); align-items: stretch; }
+  .toast { max-width: none; }
+
+  /* POS mobile: cart as bottom sheet */
+  .view.pos-view { padding-bottom: 10px; }
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding-bottom: 110px; }
+  .cart-panel {
+    top: auto; left: 0; right: 0; bottom: 0; width: 100%; height: 90dvh;
+    border-radius: 28px 28px 0 0; transform: translateY(105%);
+  }
+  .pos.cart-open .cart-panel { transform: none; }
+  .cart-panel .cart-summary { padding-bottom: calc(16px + var(--safe-bottom)); }
+  .cart-fab { bottom: calc(var(--bottom-nav-h) + 24px + var(--safe-bottom)); }
+
+  /* Responsive tables -> stacked cards */
+  .table.responsive thead { display: none; }
+  .table.responsive, .table.responsive tbody, .table.responsive tr, .table.responsive td, .table.responsive tfoot { display: block; width: 100%; }
+  .table.responsive tr { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 8px 12px; margin-bottom: 10px; box-shadow: var(--shadow-neu); }
+  .table.responsive td { border: 0; padding: 6px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: right !important; }
+  .table.responsive td::before { content: attr(data-label); color: var(--text-2); font-size: 12px; font-weight: 600; text-align: left; flex-shrink: 0; }
+  .table.responsive td[data-label=""]::before, .table.responsive td:not([data-label])::before { display: none; }
+  .table.responsive td.first { display: block; text-align: left !important; padding-top: 4px; }
+  .table.responsive td.first::before { display: none; }
+  .table.responsive td.actions { justify-content: flex-end; border-top: 1px solid var(--border); margin-top: 4px; padding-top: 8px; }
+  .table.responsive tfoot tr { background: var(--primary-soft); }
+}
+
+@media (max-width: 380px) {
+  .grid-cards { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 1023px) { .cart-close { display: inline-flex; } }
+
+/* ===== Wallet-style navigation & header ===== */
+.bottom-nav {
+  left: 0; right: 0; bottom: 0; border-radius: 28px 28px 0 0;
+  height: calc(var(--bottom-nav-h) + var(--safe-bottom)); padding: 6px 10px var(--safe-bottom);
+  background: var(--surface); border: 0; border-top: 1px solid var(--border);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, .22); align-items: center;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.bottom-nav a, .bottom-nav button { height: 100%; border-radius: 16px; }
+.bottom-nav .active { background: none; color: var(--text); }
+.bottom-nav a.center-tab {
+  flex: 0 0 60px; width: 60px; height: 60px; margin-top: -30px; border-radius: 50%;
+  background: var(--primary); color: #fff; box-shadow: 0 10px 24px rgba(220, 38, 38, .45);
+}
+.bottom-nav a.center-tab span { display: none; }
+.bottom-nav a.center-tab.active { background: var(--primary); color: #fff; }
+.bottom-nav a.center-tab i, .bottom-nav a.center-tab svg { width: 26px; height: 26px; }
+@media (max-width: 1023px) { .dash-top { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 767px) {
+  .topbar { top: 0; margin: 0; padding: calc(12px + var(--safe-top)) 16px 10px; height: auto; border-radius: 0; background: var(--bg); border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .top-avatar { display: grid; width: 44px; height: 44px; font-size: 16px; }
+  .topbar h1 { font-size: 20px; font-weight: 700; }
+  .hero-amount { font-size: 28px; }
+  .op-ico { width: 44px; height: 44px; }
+}

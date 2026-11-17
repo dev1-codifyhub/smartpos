@@ -1,0 +1,53 @@
+/* ===== Print area (screen: hidden) ===== */
+#print-area { display: none; }
+
+/* ===== Receipt (used on screen preview AND print) ===== */
+.receipt {
+  font-family: 'Courier New', Courier, monospace;
+  color: #000; background: #fff;
+  font-size: 11px; line-height: 1.35;
+  padding: 2mm 1mm;
+  width: 48mm; /* printable width for 58mm paper */
+  margin: 0 auto;
+  position: relative;
+}
+.receipt.w80 { width: 72mm; font-size: 12px; }
+.receipt .rc-center { text-align: center; }
+.receipt .rc-logo { max-width: 22mm; max-height: 18mm; margin: 0 auto 2mm; display: block; filter: grayscale(1) contrast(1.4); }
+.receipt .rc-store { font-weight: 700; font-size: 1.25em; text-transform: uppercase; }
+.receipt .rc-sep { border: 0; border-top: 1px dashed #000; margin: 2mm 0; }
+.receipt .rc-row { display: flex; justify-content: space-between; gap: 2mm; }
+.receipt .rc-row span:last-child { text-align: right; white-space: nowrap; }
+.receipt .rc-item-name { font-weight: 700; word-break: break-word; }
+.receipt .rc-total { font-weight: 700; font-size: 1.2em; }
+.receipt .rc-void { position: absolute; top: 40%; left: 0; right: 0; text-align: center; font-size: 26px; font-weight: 900; transform: rotate(-18deg); border: 3px solid #000; opacity: .35; padding: 2px; margin: 0 6mm; }
+.receipt .rc-foot { margin-top: 2mm; text-align: center; }
+
+/* ===== Barcode labels ===== */
+.labels-grid { display: flex; flex-wrap: wrap; gap: 3mm; padding: 2mm; background: #fff; color: #000; font-family: Arial, sans-serif; }
+.label-item { width: 50mm; height: 28mm; border: 1px dotted #888; padding: 1.5mm; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; page-break-inside: avoid; break-inside: avoid; }
+.label-item .ln { font-size: 8.5pt; font-weight: 700; line-height: 1.1; max-height: 2.3em; overflow: hidden; }
+.label-item .lp { font-size: 9pt; font-weight: 700; }
+.label-item svg { max-width: 100%; height: 13mm; }
+
+/* ===== Printable report ===== */
+.report-print { font-family: Arial, sans-serif; color: #000; background: #fff; padding: 10mm; }
+.report-print h1 { font-size: 18pt; margin-bottom: 2px; }
+.report-print .rp-sub { color: #444; margin-bottom: 8mm; font-size: 10pt; }
+.report-print .rp-sum { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; margin-bottom: 6mm; }
+.report-print .rp-sum div { border: 1px solid #bbb; padding: 3mm; border-radius: 2mm; font-size: 9.5pt; }
+.report-print .rp-sum b { display: block; font-size: 12pt; }
+.report-print table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+.report-print th, .report-print td { border-bottom: 1px solid #ccc; padding: 2mm; text-align: left; }
+.report-print th { background: #eee; }
+.report-print .num { text-align: right; }
+
+@media print {
+  html, body { background: #fff !important; margin: 0 !important; padding: 0 !important; }
+  body::before { display: none !important; }
+  body > *:not(#print-area) { display: none !important; }
+  #print-area { display: block !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .receipt { margin: 0; }
+  .receipt-break { page-break-after: always; }
+}

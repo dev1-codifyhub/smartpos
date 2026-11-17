@@ -1,0 +1,26 @@
+{
+  "name": "Smart POS - Kasir Pintar",
+  "short_name": "Smart POS",
+  "description": "Aplikasi kasir (Point of Sale) modern untuk toko retail, minimarket, dan kafe. Bekerja offline.",
+  "id": "./",
+  "start_url": "./index.html#/pos",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "id",
+  "dir": "ltr",
+  "background_color": "#DC2626",
+  "theme_color": "#DC2626",
+  "categories": ["business", "finance", "productivity"],
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Kasir", "short_name": "Kasir", "url": "./index.html#/pos", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Produk", "short_name": "Produk", "url": "./index.html#/products", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Laporan", "short_name": "Laporan", "url": "./index.html#/reports", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
